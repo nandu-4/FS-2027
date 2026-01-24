@@ -1,1 +1,1 @@
-This git repository consisting of FS 2027 batch notes
+This git repository consists of complete FS-2027 DSA questions and PDFs
