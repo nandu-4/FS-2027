@@ -1,0 +1,102 @@
+/*
+You are a database integrity engineer working for a global cloud company. 
+Your team maintains a distributed database network, where each server either:
+    - Stores equivalent data to another server (serverX == serverY).
+    - Stores different data from another server (serverX != serverY).
+
+The transitive consistency rule must be followed:
+    - If A == B and B == C, then A == C must be true.
+    - If A == B and B != C, then A != C must be true.
+
+Your task is to analyze the given constraints and determine whether they 
+follow transitive consistency. If all relations are consistent, return true; 
+otherwise, return false
+
+Input Format:
+-------------
+Space separated strnigs, list of relations
+
+Output Format:
+--------------
+Print a boolean value, whether transitive law is obeyed or not.
+
+
+Sample Input-1:
+---------------
+a==b c==d c!=e e==f
+
+Sample Output-1:
+----------------
+true
+
+
+Sample Input-2:
+---------------
+a==b b!=c c==a
+
+Sample Output-2:
+----------------
+false
+
+Explanation:
+------------
+{a, b} form one equivalence group.
+{c} is declared equal to {a} (c == a), which means {a, b, c} should be equivalent.
+However, b != c contradicts b == a and c == a.
+
+Sample Input-3:
+---------------
+a==b b==c c!=d d!=e f==g g!=d
+
+Sample Output-3:
+----------------
+true
+*/
+
+import java.util.*;
+
+class DSU{
+    int parent[];
+    DSU(int n){
+        parent=new int[n];
+        for(int i=0;i<n;i++){
+            parent[i]=i;
+        }
+    }
+    int find(int n){
+        if(parent[n]!=n){
+            parent[n]=find(parent[n]);
+        }
+        return parent[n];
+    }
+    void union(int a,int b){
+        int pa=find(a);
+        int pb=find(b);
+        if(pa!=pb){
+            parent[pa]=pb;
+        }
+    }
+}
+class Main{
+    public static void main(String args[]){
+        Scanner sc=new Scanner(System.in);
+        String str[]=sc.nextLine().split(" ");
+        DSU set=new DSU(26);
+        for(String s:str){
+            if(s.charAt(1)!='!'){
+                set.union(s.charAt(0)-'a',s.charAt(3)-'a');
+            }
+        }
+        boolean flag=true;
+        for(String s:str){
+            if(s.charAt(1)=='!'){
+                int v1=s.charAt(0)-'a';
+                int v2=s.charAt(3)-'a';
+                if(set.find(v1)==set.find(v2)){
+                    flag=false;break;
+                }
+            }
+        }
+        System.out.println(flag);
+    }
+}

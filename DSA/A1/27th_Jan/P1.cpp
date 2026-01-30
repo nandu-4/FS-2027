@@ -1,8 +1,6 @@
 /*
 You are given a sequence of integers. Using bitwise operations only, perform the following computations:
-
 Compute the bitwise OR of two given integers.
-
 Determine whether a given integer is even or odd using a bitwise operation.
 
 Count the total number of set bits (1s) in the binary representation of an integer.
@@ -60,7 +58,7 @@ int main() {
 
     // Even or Odd
     cin >> n;
-    cout << ((n & 1) == 0) << endl;
+    cout << ((n & 1) == 0) << endl;  // if 0==0 true even
 
     // Count set bits
     cin >> n;
