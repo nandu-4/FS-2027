@@ -55,3 +55,63 @@ Sample Output-2:
 
 */
 
+import java.util.*;
+
+class TreeNode 
+{
+    Integer val;
+    TreeNode left, right;
+    TreeNode(Integer val) {
+        this.val = val;
+        this.left = this.right = null;
+    }
+}
+
+class BT{
+    TreeNode root;
+    BT(){
+        root=null;
+    }
+    List<Integer> buildtree(int arr[]){
+        root=new TreeNode(arr[0]);
+        Queue<TreeNode> q=new LinkedList<>();
+        List<Integer> l=new ArrayList<>();
+        q.offer(root);
+        int i=1;
+        while(!q.isEmpty() && i<arr.length){
+            int size=q.size();
+            for(int k=0;k<size;k++){
+                TreeNode curr=q.poll();
+                if(i<arr.length && arr[i]!=-1){
+                    curr.left=new TreeNode(arr[i]);
+                    q.offer(curr.left);
+                }
+                i++;
+                if(i<arr.length && arr[i]!=-1){
+                    curr.right=new TreeNode(arr[i]);
+                    q.offer(curr.right);
+                }
+                i++;
+                if(k==0)l.add(curr.val);
+            }
+        }
+        l.add(q.poll().val);
+        return l;
+    }
+
+}
+
+class Main
+{
+    public static void main(String args[]){
+        Scanner sc=new Scanner(System.in);
+        String str[]=sc.nextLine().split(" ");
+        int arr[]=new int[str.length];
+        for(int i=0;i<str.length;i++){
+            arr[i]=Integer.parseInt(str[i]);
+        }   
+        BT t=new BT();
+        System.out.println(t.buildtree(arr));
+
+    }
+}

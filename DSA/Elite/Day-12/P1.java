@@ -52,3 +52,31 @@ Sample output-2
 ---------------
 false
 */
+
+import java.util.*;
+
+
+class Main{
+    public static void main(String args[]){
+        Scanner sc=new Scanner(System.in);
+        int r=sc.nextInt();
+        int c=sc.nextInt();
+        int arr[][]=new int[r][c];
+        for(int i=0;i<r;i++){
+            for(int j=0;j<c;j++){
+                arr[i][j]=sc.nextInt();
+            }
+        }
+        boolean flag=true;
+        for(int i=1;i<r;i++){
+            int curr=arr[0][0]^arr[i][0];
+            for(int j=1;j<c;j++){
+                if((arr[i][j]^arr[0][j])!=curr){
+                    flag=false;
+                    break;
+                }
+            }
+        }
+        System.out.println(flag);
+    }
+}
